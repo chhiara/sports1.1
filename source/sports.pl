@@ -456,6 +456,12 @@ unless ($rRNA_db_address eq "NULL"){
 	}
 }
 
+##changed by chiara----------------------------------------------------------------------
+use Cwd;
+my $cwd = cwd();
+print "Current working directory: '$cwd()'";
+#--------------------------#################################################################
+
 while (@tmp_filelist){
 	my $tmp_f = $tmp_filelist[0];
 	$count += 1;
@@ -494,6 +500,9 @@ input_query_suffix="' . $input_query_suffix . '"
 output_address="' . $output_address . ${count} . '_${input_query_name}/"
 script_address="' . $script_address . '"
 
+##changed by chiara-------------------------------------
+work_dir="' . $cwd . '"
+######--------------------------------------------
 
 if [ ! -d "${output_address}" ]; then
 	mkdir -p ${output_address}
@@ -615,10 +624,15 @@ output_detail=${output_address}${input_query_name}_output_match_genome
 
 touch ${output_match}
 touch ${output_unmatch}
+
+##changed by chiara-----------------------------
+cd $work_dir
+##-------------------------------------
+
 bowtie ${bowtie_address} -f ${input} -v ${mismatch} -k 1 -p ${thread} --al ${output_match} --un ${output_unmatch} > ${output_detail}
 
 input_match=${output_address}${input_query_name}_match_genome.fa
-input_unmatch=${output_address}${input_query_name}_unmatch_genome.fa';
+input_unmatch=${output_address}${input_query_name}_unmatch_genome.fa ';
 
 ###annotation process - rRNA
 	unless ($rRNA_db_address eq "NULL"){
@@ -668,6 +682,7 @@ output_detail_match_genome=${output_address}${input_query_name}_output_${name}_m
 touch ${output_detail_match_genome}
 touch ${output_match_match_genome}
 touch ${output_unmatch_match_genome}
+
 
 bowtie ${bowtie_address} -f ${input_match} -v ${mismatch} -a -p ${thread} --fullref --norc --al ${output_match_match_genome} --un ${output_unmatch_match_genome} > ${output_detail_match_genome}
 
