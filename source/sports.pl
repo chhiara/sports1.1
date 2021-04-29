@@ -456,10 +456,10 @@ unless ($rRNA_db_address eq "NULL"){
 	}
 }
 
-##changed by chiara----------------------------------------------------------------------
+##changed by chhiara----------------------------------------------------------------------
 use Cwd;
 my $cwd = cwd();
-print "Current working directory: '$cwd()'";
+print "Current working directory: '$cwd'";
 #--------------------------#################################################################
 
 while (@tmp_filelist){
@@ -500,7 +500,7 @@ input_query_suffix="' . $input_query_suffix . '"
 output_address="' . $output_address . ${count} . '_${input_query_name}/"
 script_address="' . $script_address . '"
 
-##changed by chiara-------------------------------------
+##changed by chhiara-------------------------------------
 work_dir="' . $cwd . '"
 ######--------------------------------------------
 
@@ -625,7 +625,7 @@ output_detail=${output_address}${input_query_name}_output_match_genome
 touch ${output_match}
 touch ${output_unmatch}
 
-##changed by chiara-----------------------------
+##changed by chhiara-----------------------------
 cd $work_dir
 ##-------------------------------------
 
