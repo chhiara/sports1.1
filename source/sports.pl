@@ -456,6 +456,12 @@ unless ($rRNA_db_address eq "NULL"){
 	}
 }
 
+##changed by chhiara----------------------------------------------------------------------
+use Cwd;
+my $cwd = cwd();
+print "Current working directory: '$cwd'";
+#--------------------------#################################################################
+
 while (@tmp_filelist){
 	my $tmp_f = $tmp_filelist[0];
 	$count += 1;
@@ -494,6 +500,9 @@ input_query_suffix="' . $input_query_suffix . '"
 output_address="' . $output_address . ${count} . '_${input_query_name}/"
 script_address="' . $script_address . '"
 
+##changed by chhiara-------------------------------------
+work_dir="' . $cwd . '"
+######--------------------------------------------
 
 if [ ! -d "${output_address}" ]; then
 	mkdir -p ${output_address}
@@ -615,6 +624,11 @@ output_detail=${output_address}${input_query_name}_output_match_genome
 
 touch ${output_match}
 touch ${output_unmatch}
+
+##changed by chhiara-----------------------------
+cd $work_dir
+##-------------------------------------
+
 bowtie ${bowtie_address} -f ${input} -v ${mismatch} -k 1 -p ${thread} --al ${output_match} --un ${output_unmatch} > ${output_detail}
 
 input_match=${output_address}${input_query_name}_match_genome.fa
